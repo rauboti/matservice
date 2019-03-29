@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="google" content="notranslate">
+    <title>Mat og Service</title>
+
+    <!-- Font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
+    <!-- CSS -->
+    <% if (conf.device === 'desktop') {%><link rel="stylesheet" href="/css/desktop.css" /><%} else if (conf.device === 'phone') {%><link rel="stylesheet" href="/css/mobile.css" /><%}%>
+
+    <nav>
+      <img>
+      <menu>
+      <% for (var i in conf.menu) {%>
+        <div class="menuItem">
+        <%if (i === conf.selectedPage) {%>
+          <button class="selected" onclick="location.href=location.origin + '<%=conf.menu[i].path%>';"><%=i%></button>
+        <%} else {%>
+          <button onclick="location.href=location.origin + '<%=conf.menu[i].path%>';"><%=i%></button>
+        <%}%>
+        <% if (conf.menu[i].sub) {%>
+          <div class="menuSubItem">
+          <% for (var j in conf.menu[i].sub) {%>
+            <button onclick="location.href=location.origin + '<%=conf.menu[i].path%>' + '/' + '<%=conf.menu[i].sub[j].id%>';"><%=conf.menu[i].sub[j].name%></button>
+          <%}%>
+          </div>
+        <%}%>
+        </div>
+      <%}%>
+      </menu>
+    </nav>
+  </header>
+  <body>
+    <section class="pageContainer">
+      <% if (conf.details.pagetext) {%><div class="descriptionContainer"><%=conf.details.pagetext%></div><%}%>
+      <% for (var group in conf.food) { if (group !== 'prices' && group !== 'priceCategories') {%>
+        <% if (group !== 'ungrouped') {%><div class="headline"><%=group%><% if (conf.food[group]['comment']) {%><span class="headline-comment">(<%=conf.food[group]['comment']%>)</span><%}%></div><%}%>
+        <% if (conf.food['prices'] === 0) {%>
+          <div class="odd">
+          <%for (var i in conf.food[group]['dishes']) {%>
+            <span><%=conf.food[group]['dishes'][i].dish%></span><% if (i !== 0 && i != conf.food[group]['dishes'].length-1) {%>, <%}%>
+          <%}%>
+          </div>
+        <%} else {
+          var twidth, pwidth;
+          if (conf.food['prices'] === 1) { twidth = 60; pwidth = 40; } else if (conf.food['prices'] === 2) { twidth = 60; pwidth = 20; } else if (conf.food['prices'] === 3) { twidth = 70; pwidth = 10; } else if (conf.food['prices'] === 4) { twidth = 40; pwidth = 15; }%>
+          <div class="col-<%=twidth%> pricelabel"><strong></strong></div><div class="col-<%=pwidth%> pricelabel"><strong><%=conf.food.priceCategories[0]%></strong></div><% if (conf.food['prices'] > 1) {%><div class="col-<%=pwidth%> pricelabel"><strong><%=conf.food.priceCategories[1]%></strong></div><%}%><% if (conf.food['prices'] > 2) {%><div class="col-<%=pwidth%> pricelabel"><strong><%=conf.food.priceCategories[2]%></strong></div><%}%><% if (conf.food['prices'] > 3) {%><div class="col-<%=pwidth%> pricelabel"><strong><%=conf.food.priceCategories[3]%></strong></div><%}
+          var line = 'odd';
+          for (var i in conf.food[group]['dishes']) {%>
+            <div class="<%=line%>"><div class="col-<%=twidth%>"><%=conf.food[group]['dishes'][i].dish%></div><div class="col-<%=pwidth%>"><%=conf.food[group]['dishes'][i].p1%></div><% if (conf.food['prices'] > 1) {%><div class="col-<%=pwidth%>"><%=conf.food[group]['dishes'][i].p2%></div><%}%><% if (conf.food['prices'] > 2) {%><div class="col-<%=pwidth%>"><%=conf.food[group]['dishes'][i].p3%></div><%}%><% if (conf.food['prices'] > 3) {%><div class="col-<%=pwidth%>"><%=conf.food[group]['dishes'][i].p4%></div><%}%></div><%
+            line === 'odd' ? line = 'even' : line = 'odd'
+          }%>
+        <%}%>
+      <%}}%>
+    </section>
+  </body>
+  <footer>
+    <section>
+        <div class="contactContainer"><div style="font-weight: bold">E-post: </div><div><a href="mailto:<%=conf.contact['email']%>"><%=conf.contact['email']%></a></div></div>
+        <div class="contactContainer"><div style="font-weight: bold">Telefon: </div><div><%=conf.contact['phone'].slice(0,3)%> <%=conf.contact['phone'].slice(3,5)%> <%=conf.contact['phone'].slice(5)%></div></div>
+    </section>
+  </footer>
+</html>

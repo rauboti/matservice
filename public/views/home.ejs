@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="google" content="notranslate">
+    <title>Mat og Service</title>
+
+    <!-- Font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
+    <!-- CSS -->
+    <% if (conf.device === 'desktop') {%><link rel="stylesheet" href="/css/desktop.css" /><%} else if (conf.device === 'phone') {%><link rel="stylesheet" href="/css/mobile.css" /><%}%>
+
+    <nav>
+      <img>
+      <menu>
+      <% for (var i in conf.menu) {%>
+        <div class="menuItem">
+        <%if (i === conf.selectedPage) {%>
+          <button class="selected" onclick="location.href=location.origin + '<%=conf.menu[i].path%>';"><%=i%></button>
+        <%} else {%>
+          <button onclick="location.href=location.origin + '<%=conf.menu[i].path%>';"><%=i%></button>
+        <%}%>
+        <% if (conf.menu[i].sub) {%>
+          <div class="menuSubItem">
+          <% for (var j in conf.menu[i].sub) {%>
+            <button onclick="location.href=location.origin + '<%=conf.menu[i].path%>' + '/' + '<%=conf.menu[i].sub[j].id%>';"><%=conf.menu[i].sub[j].name%></button>
+          <%}%>
+          </div>
+        <%}%>
+        </div>
+      <%}%>
+      </menu>
+    </nav>
+  </header>
+  <body>
+    <section class="pageContainer">
+      <div class="descriptionContainer"><%=conf.pagetext%></div>
+    </section>
+  </body>
+  <footer>
+    <section>
+        <div class="contactContainer"><div style="font-weight: bold">E-post: </div><div><a href="mailto:<%=conf.contact['email']%>"><%=conf.contact['email']%></a></div></div>
+        <div class="contactContainer"><div style="font-weight: bold">Telefon: </div><div><%=conf.contact['phone'].slice(0,3)%> <%=conf.contact['phone'].slice(3,5)%> <%=conf.contact['phone'].slice(5)%></div></div>
+    </section>
+  </footer>
+</html>
