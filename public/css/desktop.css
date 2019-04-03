@@ -204,6 +204,13 @@ nav > img {
   white-space: pre-wrap;
   font-size: 0.85rem;
 }
+.descriptionContainer > img {
+  border: none;
+  float: right;
+  height: 300px;
+  margin: 5px;
+  width: 400px;
+}
 .pricelabel {
   font-size: 0.9rem;
   color: rgba(0,0,0,0.5);

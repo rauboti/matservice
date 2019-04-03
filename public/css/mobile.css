@@ -181,6 +181,11 @@ nav > img {
   white-space: pre-wrap;
   font-size: 0.85rem;
 }
+.descriptionContainer > img {
+  border: none;
+  box-sizing: border-box;
+  max-width: 100%;
+}
 .pricelabel {
   font-size: 0.65rem;
   color: rgba(0,0,0,0.75);

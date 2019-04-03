@@ -6,6 +6,7 @@ const device = require('express-device');
 const pagerouter = express.Router();
 
 const DB = require('../js/data');
+const Func = require('../js/functions');
 
 function router() {
   pagerouter.route('/')
