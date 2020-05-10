@@ -2,80 +2,79 @@
 const express = require('express');
 const debug = require('debug')('app:routes');
 const device = require('express-device');
+const fs = require('fs');
 
 const pagerouter = express.Router();
 
 const DB = require('../js/data');
-const Func = require('../js/functions');
+//const Func = require('../js/functions');
 
 function router() {
   pagerouter.route('/')
     .get((req, res) =>  {
       (async function query() {
-        const menu = await DB.get.pages();
-        const pagetext = await DB.get.pageText('Forside', 0);
-        const contact = await DB.get.contactInfo();
-        var conf = {device: req.device.type.toLowerCase(), contact: contact, menu: menu, pagetext: pagetext, selectedPage: 'Forside'}
-        res.render('home', {conf})
+        const pages = await DB.pages.get.headlines('no');
+        const text = await DB.pages.get.text('no', 0);
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('home', {conf, text})
+      }())
+    });
+  pagerouter.route('/:language')
+    .get((req, res) =>  {
+      (async function query() {
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.text(req.params.language, 0);
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('home', {conf, text})
       }())
     });
 
-  pagerouter.route('/food')
-    .get((req, res) => {
+  pagerouter.route('/:language/food/')
+    .get((req, res) =>  {
       (async function query() {
-        const menu = await DB.get.pages();
-        const contact = await DB.get.contactInfo();
-        const subpages = await DB.get.subpages('Mat');
-        var conf = {device: req.device.type.toLowerCase(), contact: contact, menu: menu, subpages: subpages, landingpage: 'food', selectedPage: 'Mat'}
-        res.render('landingpage', {conf})
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.text(req.params.language, 3);
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('food', {conf, text})
       }())
     });
 
-  pagerouter.route('/food/:id')
-    .get((req, res) => {
+  pagerouter.route('/:language/rental/')
+    .get((req, res) =>  {
       (async function query() {
-        const menu = await DB.get.pages();
-        const contact = await DB.get.contactInfo();
-        const details = await DB.get.foodDetails(req.params.id);
-        const food = await DB.get.food(req.params.id);
-        var conf = {device: req.device.type.toLowerCase(), contact: contact, menu: menu, food: food, details: details, selectedPage: 'Mat'}
-        res.render('foodgroup', {conf})
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.text(req.params.language, 2);
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('rental', {conf, text})
       }())
     });
 
-  pagerouter.route('/premises')
-    .get((req, res) => {
+  pagerouter.route('/:language/sale/')
+    .get((req, res) =>  {
       (async function query() {
-        const menu = await DB.get.pages();
-        const contact = await DB.get.contactInfo();
-        const subpages = await DB.get.subpages('Lokaler');
-        var conf = {device: req.device.type.toLowerCase(), contact: contact, menu: menu, subpages: subpages, landingpage: 'premises', selectedPage: 'Lokaler'}
-        res.render('landingpage', {conf})
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.text(req.params.language, 4);
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('sale', {conf, text})
       }())
     });
 
-  pagerouter.route('/premises/:id')
-    .get((req, res) => {
+  pagerouter.route('/:language/service/')
+    .get((req, res) =>  {
       (async function query() {
-        const menu = await DB.get.pages();
-        const contact = await DB.get.contactInfo();
-        const details = await DB.get.premiseDetails(req.params.id);
-        var conf = {device: req.device.type.toLowerCase(), contact: contact, menu: menu, details: details, selectedPage: 'Lokaler'}
-        res.render('premise', {conf})
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.text(req.params.language, 1);
+        const pictures = await DB.pages.get.pictures('service');
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('service', {conf, text, pictures})
       }())
     });
-
-  pagerouter.route('/services')
-    .get((req, res) => {
-      (async function query() {
-        const menu = await DB.get.pages();
-        const pagetext = await DB.get.pageText('Tjenester', 0);
-        const contact = await DB.get.contactInfo();
-        const services = await DB.get.services();
-        var conf = {device: req.device.type.toLowerCase(), contact: contact, menu: menu, pagetext: pagetext, services: services, selectedPage: 'Andre tjenester'}
-        res.render('services', {conf})
-      }())
-    })
 
   return pagerouter;
 }
