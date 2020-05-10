@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="google" content="notranslate">
+    <title>Mat og Service</title>
+
+    <!-- Font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
+    <!-- CSS -->
+    <% if (conf.device === 'desktop') {%><link rel="stylesheet" href="/css/desktop.css" /><%} else if (conf.device === 'phone') {%><link rel="stylesheet" href="/css/mobile.css" /><%}%>
+
+    <nav>
+      <img onclick="window.location.href='/'" src="/img/mslogo.png" height="100">
+      <menu>
+        <% for (var i in conf.pages) {%>
+          <a href="<%=conf.pages[i].path%>"><%=conf.pages[i].text.toUpperCase()%></a>
+        <%}%>
+      </menu>
+      <div id="languagebar"><% for (var i in conf.languages) {%><button id="lang-<%=conf.languages[i]%>" class="language"><img src="/ico/<%=conf.languages[i]%>.png"></button><%}%></div>
+    </nav>
+  </header>
+  <body>
+    <section class="pageContainer"><div class="pagePic"><img src="/img/upload/service/<%=pictures[1]%>"></div><div class="pageText"><%=text%></div></section>
+    </section>
+  </body>
+  <footer>
+    <input id="pictures" type="hidden" value="<%=pictures%>">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/main.js"></script>
+  </footer>
+</html>
