@@ -22,11 +22,11 @@
     </nav>
   </header>
   <body>
-    <section class="pageContainer"><div class="pagePic"><img src="/img/upload/service/<%=pictures[1]%>"></div><div class="pageText"><%=text%></div></section>
+    <section class="pageContainer"><div class="pagePic"><div class="arrowRow"><button id="arrowLeft" class="arrow"></button><button id="arrowRight" class="arrow"></button></div><img id="picture" src="/img/upload/service/<%=pictures[0]%>"></div><div class="pageText"><%=text%></div></section>
     </section>
   </body>
   <footer>
-    <input id="pictures" type="hidden" value="<%=pictures%>">
+    <input id="pictureArray" type="hidden" value="<%=pictures%>">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/main.js"></script>
   </footer>

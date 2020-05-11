@@ -45,6 +45,19 @@ nav > menu > a {
   margin-right: .5vw;
   text-decoration: none;
 }
+.arrow {
+  background: url('/img/arrow.png');
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  outline: none;
+  width: 40px;
+}
+#arrowLeft {
+  transform: rotate(180deg);
+  margin-right: 20px;
+}
 .pageContainer {
   box-sizing: border-box;
   height: 80vh;
