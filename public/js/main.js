@@ -4,7 +4,7 @@ var picturePosition = 0
 $(document).ready(function() {
     if ($('#pictureArray').length) {
         pictureBank = $('#pictureArray').val().split(',');
-        console.log(pictureBank);
+        //console.log(pictureBank);
         if (pictureBank.length > 1) {
             $('.arrowRow').css({'height': '4vh', 'margin-bottom': '1vh'});
             $('.pagePic').css({'height': '70vh', 'maxHeight': '70vh'});
@@ -45,7 +45,7 @@ $(document).ready(function() {
 });
 
 function changePicture(newPos) {
-    console.log(newPos + ' - ' +  pictureBank[newPos])
-    var newSrc = '/img/upload/service/' + pictureBank[newPos];
+    //console.log(newPos + ' - ' +  pictureBank[newPos])
+    var newSrc = '/img/upload/' + window.location.href.split('/')[window.location.href.split('/').length-2] + '/' + pictureBank[newPos];
     $('#picture').attr('src', newSrc);
 }

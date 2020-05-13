@@ -47,9 +47,10 @@ function router() {
       (async function query() {
         const pages = await DB.pages.get.headlines(req.params.language);
         const text = await DB.pages.get.text(req.params.language, 2);
+        const pictures = await DB.pages.get.pictures('rental');
         const languages = await DB.languages.published();
         var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
-        res.render('rental', {conf, text})
+        res.render('rental', {conf, text, pictures})
       }())
     });
 
