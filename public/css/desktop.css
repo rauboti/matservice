@@ -80,6 +80,7 @@ nav > menu > a {
   text-align: left;
   width: 35vw;
   min-width: 250px;
+  overflow-y: scroll;
 }
 .pagePic {
   max-width: 45vw;

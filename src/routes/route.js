@@ -30,15 +30,28 @@ function router() {
         res.render('home', {conf, text})
       }())
     });
+  
+  pagerouter.route('/:language/adventure/')
+    .get((req, res) =>  {
+      (async function query() {
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.text(req.params.language, 4);
+        const pictures = await DB.pages.get.pictures('adventure');
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        res.render('adventure', {conf, text, pictures})
+      }())
+    });
 
   pagerouter.route('/:language/food/')
     .get((req, res) =>  {
       (async function query() {
         const pages = await DB.pages.get.headlines(req.params.language);
         const text = await DB.pages.get.text(req.params.language, 3);
+        const pictures = await DB.pages.get.pictures('food');
         const languages = await DB.languages.published();
         var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
-        res.render('food', {conf, text})
+        res.render('food', {conf, text, pictures})
       }())
     });
 
@@ -58,7 +71,7 @@ function router() {
     .get((req, res) =>  {
       (async function query() {
         const pages = await DB.pages.get.headlines(req.params.language);
-        const text = await DB.pages.get.text(req.params.language, 4);
+        const text = await DB.pages.get.text(req.params.language, 5);
         const languages = await DB.languages.published();
         var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
         res.render('sale', {conf, text})
