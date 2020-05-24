@@ -10,6 +10,14 @@ const sql = require('../db/config');
 const SC = require('../js/functions');
 
 module.exports = {
+    buttons: {
+        get: {
+            text: async function(language, id) {
+                const result = await sql.query('SELECT text FROM tblButtonText WHERE id = ? AND language = ?', [id, language])
+                return result;
+            }
+        }
+    },
     languages: {
         published: async function() {
             const result = await sql.query('SELECT language FROM tblPages where published = 1 GROUP BY language');
@@ -26,6 +34,12 @@ module.exports = {
                 const result = await sql.query('SELECT text FROM tblPageText WHERE language = ? AND page = ?', [language, page])
                 return result;
             }
+        }
+    },
+    tools: {
+        get: async function(language) {
+            const tools = await sql.query('SELECT text, priceDay, priceWeek FROM tblTools WHERE language = ?', [language]);
+            return tools;
         }
     }
 }

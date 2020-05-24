@@ -62,10 +62,19 @@ function router() {
         const text = await DB.pages.get.text(req.params.language, 2);
         const pictures = await DB.pages.get.pictures('rental');
         const languages = await DB.languages.published();
+        const toolButton = await DB.buttons.get.text(req.params.language, 'btnTools');
+        var buttons = {toolButton: toolButton};
         var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
-        res.render('rental', {conf, text, pictures})
+        res.render('rental', {buttons, conf, text, pictures})
       }())
-    });
+    })
+    .post((req, res) => {
+      (async function dbQuery() {
+        if (req.body.request === 'tools') {
+          const tools = await DB.tools.get(req.params.language);
+          res.json(tools)
+        }
+      }())});
 
   pagerouter.route('/:language/sale/')
     .get((req, res) =>  {

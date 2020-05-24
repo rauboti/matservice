@@ -14,6 +14,14 @@ const SC = require('../js/functions');
 //const api = require('../api/requests');
 
 const local = module.exports = {
+    buttons: {
+        get: {
+            text: async function(language, id) {
+                const result = await db.buttons.get.text(language, id);
+                return result[0].text;
+            }
+        }
+    },
     languages: {
         published: async function() {
             const l = []
@@ -53,6 +61,12 @@ const local = module.exports = {
                     return result[i].text
                 }
             }
+        }
+    },
+    tools: {
+        get: async function(language) {
+            const result = db.tools.get(language);
+            return result;
         }
     }
 }

@@ -60,7 +60,6 @@ nav > menu > a {
 }
 .pageContainer {
   box-sizing: border-box;
-  height: 80vh;
   margin-top: 2vh;
   padding: 1rem;
   white-space: pre-wrap;
@@ -68,27 +67,78 @@ nav > menu > a {
 .pagePic, .pageText {
   box-sizing: border-box;
   display: inline-block;
-  height: 75vh;
-  max-height: 75vh;
+  height: 60vh;
+  max-height: 60vh;
   vertical-align: top;
 }
 .pageText {
   background-color: rgba(255, 255, 255, .5);
   box-shadow: 0 0 5px 2px black;
   max-width: 35vw;
+  min-width: 250px;
+  overflow-y: scroll;
   padding: 1rem;
   text-align: left;
   width: 35vw;
-  min-width: 250px;
-  overflow-y: scroll;
 }
 .pagePic {
-  max-width: 45vw;
+  max-width: 35vw;
   min-width: 250px;
-  width: 45vw; 
+  width: 35vw; 
 }
 .pagePic img {
-  max-width: 35vw;
-  max-height: 75vh;
   box-shadow: 0 0 5px 2px black;
+  height: 55vh;
+  max-height: 55vh;
+  max-width: 30vw;
+}
+.submenu {
+  height: 5vh;
+}
+.submenu button {
+  background: none;
+  border: 2px solid black;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  font-size: 1.2rem;
+}
+.popup {
+  background: white;
+  position: absolute;
+  top: 15vh;
+  height: 70vh;
+  width: 60vw;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.popupButtonrow {
+  text-align: right;
+}
+.popupButtonrow button{
+  background: rgba(255, 80, 80, 1);
+  border: 1px solid black;
+  min-width: 40px;
+  max-width: 40px;
+}
+.popupContent {
+  padding: .5vw;
+  text-align: middle;
+  overflow-y: scroll;
+  max-height: 90%;
+}
+.popupContent table {
+  display: inline-block;
+  text-align: left;
+}
+td {
+  padding: 5px;
+}
+td {
+  border: 1px solid rgba(180, 180, 180, 1);
 }
