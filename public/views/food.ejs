@@ -22,10 +22,14 @@
     </nav>
   </header>
   <body>
-    <section class="pageContainer"><div class="submenu"></div><div class="pagePic"><img id="picture" src="/img/upload/food/<%=pictures[0]%>"><div class="arrowRow"><button id="arrowLeft" class="arrow"></button><button id="arrowRight" class="arrow"></button></div></div><div class="pageText"><%=text%></div></section>
+    <section class="pageContainer"><div class="submenu"><% for (var i in foodGroups) {%><button id="btnFoodGroup<%=foodGroups[i].id%>" class="foodGroupButton"><%=foodGroups[i].name%></button><%}%></div><div class="pagePic"><img id="picture" src="/img/upload/food/<%=pictures[0]%>"><div class="arrowRow"><button id="arrowLeft" class="arrow"></button><button id="arrowRight" class="arrow"></button></div></div><div class="pageText"><%=text%></div></section>
     </section>
   </body>
   <footer>
+    <section>
+      <a href="https://www.facebook.com/Mat-og-Service-101847788212834/" target="_blank"><img src="/img/facebook_logo.png" class=logo><span>Mat og Service</span></a>
+      <a href="https://www.instagram.com/smayrhofer/" target="_blank"><img src="/img/instagram_logo.png" class=logo><span>smayrhofer</span></a>
+    </section>
     <input id="pictureArray" type="hidden" value="<%=pictures%>">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/main.js"></script>

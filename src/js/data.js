@@ -22,6 +22,37 @@ const local = module.exports = {
             }
         }
     },
+    food: {
+        courses: {
+            get: async function(language, group) {
+                const result = await db.food.courses.get(language, group)
+                return result;
+            }
+        },
+        groups: {
+            get: async function(language) {
+                var entered = [];
+                var result;
+                var g = []
+                var groups = {};
+                result = await db.food.groups.get(language);
+                for (var i in result) {
+                    groups[result[i].id] = result[i].name
+                }
+                const courses = await db.food.courses.get(language, 'all');
+                for (var i in courses) {
+                    if (!entered.includes(courses[i].group)) {
+                        x = {}
+                        x['id'] = courses[i].group
+                        x['name'] = groups[courses[i].group]
+                        g.push(x);
+                        entered.push(courses[i].group);
+                    }
+                }
+                return g;
+            }
+        }
+    },
     languages: {
         published: async function() {
             const l = []

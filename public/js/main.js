@@ -44,10 +44,8 @@ $(document).ready(function() {
     });
 
     $('#btnTools').click(function() {
-        console.log('We clicked it!')
         var data = { request: 'tools' };
         $.ajax({ type: 'POST', data: JSON.stringify(data), contentType: 'application/json', success: function(result) {
-            console.log(result)
             fade(0)
             $('html').append(
                 '<div id="popup" class="popup"><div class="popupButtonrow"><button id="btnClose">X</button></div><div id="popupContent" class="popupContent"><table></table></div></div>'
@@ -58,6 +56,36 @@ $(document).ready(function() {
             });
             for (var i in result) {
                 $('#popupContent table').append('<tr><td>' + result[i].text + '</td><td>' + result[i].priceDay + '</td><td>' + result[i].priceWeek + '</td></tr>');
+            }
+        }});
+    });
+
+    $('.foodGroupButton').click(function() {
+        var data = { request: 'food', group: parseInt($(this).attr('id').split('btnFoodGroup')[1])};
+        $.ajax({ type: 'POST', data: JSON.stringify(data), contentType: 'application/json', success: function(result) {
+            var prices = []
+            fade(0)
+            $('html').append(
+                '<div id="popup" class="popup"><div class="popupButtonrow"><button id="btnClose">X</button></div><div id="popupContent" class="popupContent"><table></table></div></div>'
+            );
+            $('#btnClose').click(function() {
+                remove($('#popup'))
+                fade(1)
+            });
+            for (var i in result) {
+                if (result[i].p1 !== null && !prices.includes('p1')) { prices.push('p1'); }
+                if (result[i].p2 !== null && !prices.includes('p2')) { prices.push('p2'); }
+                if (result[i].p3 !== null && !prices.includes('p3')) { prices.push('p3'); }
+                if (result[i].p4 !== null && !prices.includes('p4')) { prices.push('p4'); }
+            }
+            for (var i in result) {
+                var s = '';
+                prices.includes('p1') && (s += '<td>' + result[i].p1 + '</td>');
+                prices.includes('p2') && (s += '<td>' + result[i].p2 + '</td>');
+                prices.includes('p3') && (s += '<td>' + result[i].p3 + '</td>');
+                prices.includes('p4') && (s += '<td>' + result[i].p4 + '</td>');
+                
+                $('#popupContent table').append('<tr><td>' + result[i].name + '</td>' + s + '</tr>');
             }
         }});
     });

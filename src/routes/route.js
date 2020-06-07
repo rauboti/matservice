@@ -50,10 +50,17 @@ function router() {
         const text = await DB.pages.get.text(req.params.language, 3);
         const pictures = await DB.pages.get.pictures('food');
         const languages = await DB.languages.published();
+        const foodGroups = await DB.food.groups.get(req.params.language);
         var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
-        res.render('food', {conf, text, pictures})
+        res.render('food', {conf, text, pictures, foodGroups})
       }())
-    });
+    }).post((req, res) => {
+      (async function dbQuery() {
+        if (req.body.request === 'food') {
+          const courses = await DB.food.courses.get(req.params.language, req.body.group);
+          res.json(courses)
+        }
+      }())});
 
   pagerouter.route('/:language/rental/')
     .get((req, res) =>  {

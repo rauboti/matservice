@@ -13,7 +13,21 @@ module.exports = {
     buttons: {
         get: {
             text: async function(language, id) {
-                const result = await sql.query('SELECT text FROM tblButtonText WHERE id = ? AND language = ?', [id, language])
+                const result = await sql.query('SELECT text FROM tblButtonText WHERE id = ? AND language = ?', [id, language]);
+                return result;
+            }
+        }
+    },
+    food: {
+        courses: {
+            get: async function(language, group) {
+                group == 'all' ? (result = await sql.query('SELECT * FROM tblFood WHERE language = ?', [language])) : (result = await sql.query('SELECT * FROM tblFood WHERE `language` = ? AND `group` = ?', [language, group]));
+                return result;
+            }
+        },
+        groups: {
+            get: async function(language) {
+                const result = await sql.query('SELECT * FROM tblFoodGroups WHERE language = ?', [language]);
                 return result;
             }
         }

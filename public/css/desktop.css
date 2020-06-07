@@ -93,7 +93,7 @@ nav > menu > a {
   max-width: 30vw;
 }
 .submenu {
-  height: 5vh;
+  min-height: 5vh;
 }
 .submenu button {
   background: none;
@@ -102,6 +102,7 @@ nav > menu > a {
   cursor: pointer;
   outline: none;
   font-size: 1.2rem;
+  margin: 5px;
 }
 .popup {
   background: white;
@@ -124,7 +125,6 @@ nav > menu > a {
   background: rgba(255, 80, 80, 1);
   border: 1px solid black;
   min-width: 40px;
-  max-width: 40px;
 }
 .popupContent {
   padding: .5vw;
@@ -141,4 +141,28 @@ td {
 }
 td {
   border: 1px solid rgba(180, 180, 180, 1);
+}
+footer section {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, .5);
+  width: 65vw;
+  padding: 5px;
+}
+
+footer section * {
+  vertical-align: middle;
+  margin: 3px;
+}
+
+footer section a {
+  text-decoration: none;
+  color: black;
+}
+footer section a:hover {
+  text-decoration: underline var(--mainColour);
+}
+
+img.logo {
+  width: 20px;
+  height: 20px;
 }
