@@ -93,7 +93,10 @@ $(document).ready(function() {
 
 function changePicture(newPos) {
     //console.log(newPos + ' - ' +  pictureBank[newPos])
-    var newSrc = '/img/upload/' + window.location.href.split('/')[window.location.href.split('/').length-2] + '/' + pictureBank[newPos];
+    console.log(window.location.href.split('/').length)
+    var newSrc = '/img/upload/';
+    if (window.location.href.split('/').length == 6) { newSrc += window.location.href.split('/')[window.location.href.split('/').length-2] + '/' + pictureBank[newPos]; }
+    else if (window.location.href.split('/').length == 7) { newSrc += window.location.href.split('/')[window.location.href.split('/').length-3] + '/' + window.location.href.split('/')[window.location.href.split('/').length-2] + '/' + pictureBank[newPos]; }
     $('#picture').attr('src', newSrc);
 }
 

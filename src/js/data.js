@@ -78,6 +78,7 @@ const local = module.exports = {
                 return p;
             },
             pictures: async function(page) {
+                console.log(page)
                 var arr = []
                 fs.readdirSync('public/img/upload/' + page + '/').forEach(file => {
                     if (file.split('.').pop() === 'jpg' || file.split('.').pop() === 'png') {
@@ -85,6 +86,24 @@ const local = module.exports = {
                     }
                 });
                 return arr;
+            },
+            subpages: async function(language, parent) {
+                var p = []
+                const result = await db.pages.get.subpages(language, parent);
+                for (var i in result) {
+                    x = {}
+                    x['path'] = result[i]['path']
+                    x['text'] = result[i]['text']
+                    x['language'] = result[i]['language']
+                    p.push(x)
+                }
+                return p;
+            },
+            subpagetext: async function(language, page) {
+                const result = await db.pages.get.subpagetext(language, page);
+                for (var i in result) {
+                    return result[i].text
+                }
             },
             text: async function(language, page) {
                 const result = await db.pages.get.text(language, page);

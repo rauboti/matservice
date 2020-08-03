@@ -44,6 +44,14 @@ module.exports = {
                 const result = await sql.query('SELECT path, text, language FROM tblPages WHERE language = ? AND published = 1', [language]);
                 return result;
             },
+            subpages: async function(language, parent) {
+                const result = await sql.query('SELECT path, text, language FROM tblSubpages WHERE language = ? AND parent = ? AND published = 1', [language, parent]);
+                return result;
+            },
+            subpagetext: async function(language, page) {
+                const result = await sql.query('SELECT text FROM tblSubpageText WHERE language = ? AND page = ?', [language, page])
+                return result;
+            },
             text: async function(language, page) {
                 const result = await sql.query('SELECT text FROM tblPageText WHERE language = ? AND page = ?', [language, page])
                 return result;

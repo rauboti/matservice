@@ -37,9 +37,23 @@ function router() {
         const pages = await DB.pages.get.headlines(req.params.language);
         const text = await DB.pages.get.text(req.params.language, 4);
         const pictures = await DB.pages.get.pictures('adventure');
+        const subpages = await DB.pages.get.subpages(req.params.language, 'adventure');
         const languages = await DB.languages.published();
-        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages}
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages, subpages: subpages}
         res.render('adventure', {conf, text, pictures})
+      }())
+    });
+  
+  pagerouter.route('/:language/adventure/:trip/')
+    .get((req, res) =>  {
+      (async function query() {
+        const pages = await DB.pages.get.headlines(req.params.language);
+        const text = await DB.pages.get.subpagetext(req.params.language, req.params.trip);
+        const pictures = await DB.pages.get.pictures('adventure/' + req.params.trip);
+        const subpages = await DB.pages.get.subpages(req.params.language, 'adventure');
+        const languages = await DB.languages.published();
+        var conf = {device: req.device.type.toLowerCase(), pages: pages, languages: languages, subpages: subpages, currentPage: req.params.trip}
+        res.render('trips', {conf, text, pictures})
       }())
     });
 
